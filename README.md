@@ -40,12 +40,14 @@ Find it at: **Todoist Settings → Integrations → Developer**
 
 ## Keybindings
 
-| Key   | Action           |
-|-------|------------------|
-| j / k | Navigate down/up |
-| Enter | Select           |
-| h / l | Cycle tabs       |
-| q     | Quit             |
+| Key   | Action                          |
+|-------|---------------------------------|
+| j / k | Navigate down/up                |
+| Enter | Complete task (or submit input) |
+| n     | New task in current project     |
+| Esc   | Cancel input                    |
+| h / l | Cycle tabs                      |
+| q     | Quit                            |
 
 ## Development
 
