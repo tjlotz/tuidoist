@@ -44,7 +44,6 @@ Find it at: **Todoist Settings → Integrations → Developer**
 |-------|------------------|
 | j / k | Navigate down/up |
 | Enter | Select           |
-| Esc   | Back / Quit      |
 | h / l | Cycle tabs       |
 | q     | Quit             |
 

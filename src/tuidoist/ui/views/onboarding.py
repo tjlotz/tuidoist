@@ -37,6 +37,10 @@ def show_onboarding(manager: ptg.WindowManager) -> None:
 
         from tuidoist.ui.views.today import show_today
 
+        # Clear onboarding-scoped manager bindings before transitioning so
+        # leftover handlers don't fire against a removed window.
+        manager.bind(kb.SELECT, lambda *_: None)
+
         manager.remove(window)
         show_today(manager, token)
 
@@ -53,13 +57,13 @@ def show_onboarding(manager: ptg.WindowManager) -> None:
         "",
         status_label,
         "",
-        ptg.Label("[243]Esc to quit[/243]"),
+        ptg.Label("[243]q to quit[/243]"),
         box_type=ptg.boxes.DOUBLE,
         is_modal=True,
         overflow=ptg.Overflow.SCROLL,
     )
     window.relative_width = 0.5
     window.center()
-    manager.bind(kb.BACK, lambda *_: manager.stop())
+    manager.bind(kb.QUIT, lambda *_: manager.stop())
     manager.bind(kb.SELECT, lambda *_: on_submit())
     manager.add(window)

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import sys
+import traceback
 from typing import Any
 
 import pytermgui as ptg
@@ -37,11 +39,18 @@ def main() -> None:
     _patch_terminal_resize()
     config = load()
 
-    with ptg.WindowManager() as manager:
-        # Define a single full-screen slot for the main content
-        manager.layout.add_slot("main", width=1.0, height=1.0)
+    try:
+        with ptg.WindowManager() as manager:
+            # Define a single full-screen slot for the main content
+            manager.layout.add_slot("main", width=1.0, height=1.0)
 
-        if config.is_authenticated:
-            show_today(manager, config.api_token)
-        else:
-            show_onboarding(manager)
+            if config.is_authenticated:
+                show_today(manager, config.api_token)
+            else:
+                show_onboarding(manager)
+    except Exception:
+        # Manager context has exited and restored the normal screen, so it's
+        # safe to print a traceback. Without this, any unexpected exception
+        # in the event loop would exit silently and look like a crash.
+        traceback.print_exc(file=sys.stderr)
+        sys.exit(1)
