@@ -32,8 +32,10 @@ To publish to TestPyPI without cutting a real release, trigger the **Release** w
 
 Verify a TestPyPI install:
 ```
-uv tool install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ tuidoist
+uv tool install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ --index-strategy unsafe-best-match tuidoist
 ```
+
+`--index-strategy unsafe-best-match` is required because uv defaults to "first index wins" to prevent dependency confusion; without it, uv will resolve `tuidoist` against PyPI and ignore the TestPyPI version.
 
 ## First-time setup
 

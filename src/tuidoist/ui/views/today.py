@@ -86,8 +86,8 @@ def show_today(manager: ptg.WindowManager, token: str) -> None:
             ptg.Button(
                 "OK",
                 onclick=lambda *_: (
-                    manager.remove(error_window),
                     show_onboarding(manager),
+                    manager.remove(error_window, autostop=False),
                 ),
             ),
             "",

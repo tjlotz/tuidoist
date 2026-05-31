@@ -41,8 +41,13 @@ def show_onboarding(manager: ptg.WindowManager) -> None:
         # leftover handlers don't fire against a removed window.
         manager.bind(kb.SELECT, lambda *_: None)
 
-        manager.remove(window)
+        # Show the next view BEFORE removing onboarding, and disable autostop
+        # on the removal. pytermgui's animated remove runs on the compositor
+        # thread and calls manager.stop() the moment _windows hits length 0.
+        # If show_today blocks on a network call, the animation can complete
+        # first, stopping the manager and silently exiting the app.
         show_today(manager, token)
+        manager.remove(window, autostop=False)
 
     window = ptg.Window(
         "",
