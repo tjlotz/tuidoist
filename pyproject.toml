@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=77.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tuidoist"
+version = "0.1.0"
+description = "Terminal-first toolkit for Todoist — scriptable CLI and interactive TUI"
+readme = "README.md"
+requires-python = ">=3.12"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Tyler Lotz" },
+]
+keywords = ["todoist", "tui", "cli", "terminal", "productivity", "tasks"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Office/Business :: Scheduling",
+    "Topic :: Terminals",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "todoist-api-python>=2.1.0",
+    "pytermgui>=7.7.0",
+    "typer>=0.12.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/tjlotz/tuidoist"
+Repository = "https://github.com/tjlotz/tuidoist"
+Issues = "https://github.com/tjlotz/tuidoist/issues"
+
+[project.scripts]
+tuidoist = "tuidoist.app:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
