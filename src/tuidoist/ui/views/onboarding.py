@@ -18,18 +18,18 @@ def show_onboarding(manager: ptg.WindowManager) -> None:
     def on_submit(*_args: object) -> None:
         token = token_field.value.strip()
         if not token:
-            status_label.value = "[bold 210]Please enter your API token.[/bold 210]"
+            status_label.value = "[bold 210]Please enter your API token.[/]"
             return
 
-        status_label.value = "[bold 243]Validating token...[/bold 243]"
+        status_label.value = "[bold 243]Validating token...[/]"
 
         try:
             validate_token(token)
         except AuthError:
-            status_label.value = "[bold 210]Invalid token. Please try again.[/bold 210]"
+            status_label.value = "[bold 210]Invalid token. Please try again.[/]"
             return
         except NetworkError as e:
-            status_label.value = f"[bold 210]{e}[/bold 210]"
+            status_label.value = f"[bold 210]{e}[/]"
             return
 
         config = Config(api_token=token)
@@ -51,10 +51,10 @@ def show_onboarding(manager: ptg.WindowManager) -> None:
 
     window = ptg.Window(
         "",
-        ptg.Label("[bold 183]Welcome to Tuidoist[/bold 183]"),
+        ptg.Label("[bold 183]Welcome to Tuidoist[/]"),
         "",
         ptg.Label("Enter your Todoist API token to get started."),
-        ptg.Label("[243]Find it at: Settings → Integrations → Developer[/243]"),
+        ptg.Label("[243]Find it at: Settings → Integrations → Developer[/]"),
         "",
         token_field,
         "",
@@ -62,7 +62,7 @@ def show_onboarding(manager: ptg.WindowManager) -> None:
         "",
         status_label,
         "",
-        ptg.Label("[243]q to quit[/243]"),
+        ptg.Label("[243]q to quit[/]"),
         box_type=ptg.boxes.DOUBLE,
         is_modal=True,
         overflow=ptg.Overflow.SCROLL,

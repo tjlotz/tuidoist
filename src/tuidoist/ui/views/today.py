@@ -9,10 +9,10 @@ from tuidoist.ui import keybindings as kb
 
 # Todoist priority is inverted: 4 = highest (p1), 1 = lowest (p4)
 PRIORITY_DISPLAY = {
-    4: "[bold 210]p1[/bold 210]",
-    3: "[bold 215]p2[/bold 215]",
-    2: "[bold 114]p3[/bold 114]",
-    1: "[243]p4[/243]",
+    4: "[bold 210]p1[/]",
+    3: "[bold 215]p2[/]",
+    2: "[bold 114]p3[/]",
+    1: "[243]p4[/]",
 }
 
 
@@ -30,7 +30,7 @@ class TaskList:
         self.task_labels = []
 
         if not self.tasks:
-            label = ptg.Label("[243]No tasks for today. Nice![/243]")
+            label = ptg.Label("[243]No tasks for today. Nice![/]")
             return [label]
 
         for i, task in enumerate(self.tasks):
@@ -61,9 +61,9 @@ class TaskList:
     @staticmethod
     def _format_task(task: dict, selected: bool) -> str:
         priority = PRIORITY_DISPLAY.get(task["priority"], "")
-        project = f"[243]{task['project_name']}[/243]"
+        project = f"[243]{task['project_name']}[/]"
         content = task["content"]
-        indicator = "[bold 183]▸[/bold 183] " if selected else "  "
+        indicator = "[bold 183]▸[/] " if selected else "  "
         return f"{indicator}{priority} {content}  {project}"
 
 
@@ -80,7 +80,7 @@ def show_today(manager: ptg.WindowManager, token: str) -> None:
         save(Config())
         error_window = ptg.Window(
             ptg.Label(
-                "[bold 210]Token expired or revoked. Please re-authenticate.[/bold 210]"
+                "[bold 210]Token expired or revoked. Please re-authenticate.[/]"
             ),
             "",
             ptg.Button(
@@ -91,7 +91,7 @@ def show_today(manager: ptg.WindowManager, token: str) -> None:
                 ),
             ),
             "",
-            ptg.Label("[243]q to quit[/243]"),
+            ptg.Label("[243]q to quit[/]"),
             box_type=ptg.boxes.DOUBLE,
             is_modal=True,
         )
@@ -100,11 +100,11 @@ def show_today(manager: ptg.WindowManager, token: str) -> None:
         return
     except NetworkError as e:
         window = ptg.Window(
-            ptg.Label(f"[bold 210]{e}[/bold 210]"),
+            ptg.Label(f"[bold 210]{e}[/]"),
             "",
             ptg.Button("Quit", onclick=lambda *_: manager.stop()),
             "",
-            ptg.Label("[243]q to quit[/243]"),
+            ptg.Label("[243]q to quit[/]"),
             box_type=ptg.boxes.DOUBLE,
             is_modal=True,
         )
@@ -113,7 +113,7 @@ def show_today(manager: ptg.WindowManager, token: str) -> None:
         return
 
     window = ptg.Window(
-        ptg.Label("[bold 183]Today[/bold 183]"),
+        ptg.Label("[bold 183]Today[/]"),
         "",
         box_type=ptg.boxes.DOUBLE,
         overflow=ptg.Overflow.SCROLL,
@@ -124,7 +124,7 @@ def show_today(manager: ptg.WindowManager, token: str) -> None:
         window += widget
 
     window += ""
-    window += ptg.Label("[243]j/k navigate  q quit[/243]")
+    window += ptg.Label("[243]j/k navigate  q quit[/]")
 
     manager.bind(kb.UP, lambda *_: task_list.move(-1))
     manager.bind(kb.DOWN, lambda *_: task_list.move(1))
